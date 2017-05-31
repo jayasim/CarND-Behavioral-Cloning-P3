@@ -113,3 +113,57 @@ The video will run at 48 FPS. The default FPS is 60.
 
 1. It's been noted the simulator might perform differently based on the hardware. So if your model drives succesfully on your machine it might not on another machine (your reviewer). Saving a video is a solid backup in case this happens.
 2. You could slightly alter the code in `drive.py` and/or `video.py` to create a video of what your model sees after the image is processed (may be helpful for debugging).
+
+
+#### 1. Architecture
+Below is the output of the Keras model.summary():
+
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+cropping2d_1 (Cropping2D)    (None, 90, 320, 3)        0         
+_________________________________________________________________
+lambda_1 (Lambda)            (None, 90, 320, 3)        0         
+_________________________________________________________________
+conv2d_1 (Conv2D)            (None, 90, 32, 1)         4         
+_________________________________________________________________
+conv2d_2 (Conv2D)            (None, 88, 30, 3)         30        
+_________________________________________________________________
+conv2d_3 (Conv2D)            (None, 42, 13, 6)         456       
+_________________________________________________________________
+conv2d_4 (Conv2D)            (None, 19, 5, 16)         2416      
+_________________________________________________________________
+max_pooling2d_1 (MaxPooling2 (None, 9, 2, 16)          0         
+_________________________________________________________________
+flatten_1 (Flatten)          (None, 288)               0         
+_________________________________________________________________
+dropout_1 (Dropout)          (None, 288)               0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 100)               28900     
+_________________________________________________________________
+dense_2 (Dense)              (None, 25)                2525      
+_________________________________________________________________
+dense_3 (Dense)              (None, 1)                 26        
+=================================================================
+Total params: 34,357
+Trainable params: 34,357
+Non-trainable params: 0
+_________________________________________________________________
+
+
+#### 2. Overfitting Issues in the model
+
+The model contains a dropout layer in order to reduce overfitting (see model.py, line 102).
+Also, I've added Dropout with pool size 2, 2 in line 99
+
+#### 3. Model parameter tuning
+
+The model used an adam optimizer, so the learning rate was not tuned manually (see model.py, line 37).
+
+#### 4. Training data
+
+Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving and recovering from the left and right sides of the road in my own recorded data. Additionally, I used the left and right camera images with a steering angle correction of ±0.2 to simulate recovery.
+
+#### 5. Preprocessing and Augumentation
+
+Used shuffle and added more images using flip for augumentation and preprocessing respectively 
