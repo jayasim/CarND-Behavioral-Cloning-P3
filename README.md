@@ -115,9 +115,12 @@ The video will run at 48 FPS. The default FPS is 60.
 2. You could slightly alter the code in `drive.py` and/or `video.py` to create a video of what your model sees after the image is processed (may be helpful for debugging).
 
 
+### My Approach
+
 #### 1. Architecture
 Below is the output of the Keras model.summary():
 
+```
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================
@@ -149,7 +152,7 @@ Total params: 34,357
 Trainable params: 34,357
 Non-trainable params: 0
 _________________________________________________________________
-
+```
 
 #### 2. Overfitting Issues in the model
 
