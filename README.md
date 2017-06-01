@@ -161,7 +161,7 @@ Also, I've added Dropout with pool size 2, 2 in line 99
 
 #### 3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (see model.py, line 37).
+The model used an adam optimizer, so the learning rate was not tuned manually (see model.py, line 106).
 
 #### 4. Training data
 

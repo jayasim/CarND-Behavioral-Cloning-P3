@@ -63,7 +63,7 @@ def train_generator(batch_size):
                 pass
 
 
-batch_size = 50
+batch_size = 100
 use_transfer_learning = False
 
 # define model
@@ -112,7 +112,7 @@ steps_per_epoch: Total number of steps (batches of samples) to yield
 from generator before declaring one epoch finished and starting the next epoch. 
 It should typically be equal to the number of unique samples of your dataset divided by the batch size.
 '''
-history_object = model.fit_generator(train_generator(batch_size), steps_per_epoch=16000, epochs=2, verbose=1)
+history_object = model.fit_generator(train_generator(batch_size), steps_per_epoch=400, epochs=1, verbose=1)
 model.save('model.h5')
 
 ### print the keys contained in the history object
@@ -120,9 +120,9 @@ print(history_object.history.keys())
 
 ### plot the training and validation loss for each epoch
 plt.plot(history_object.history['loss'])
-plt.plot(history_object.history['val_loss'])
+plt.plot(history_object.history['acc'])
 plt.title('model mean squared error loss')
 plt.ylabel('mean squared error loss')
 plt.xlabel('epoch')
-plt.legend(['training set', 'validation set'], loc='upper right')
+plt.legend(['Loss', 'Accuracy'], loc='upper right')
 plt.show()
