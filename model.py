@@ -112,7 +112,7 @@ steps_per_epoch: Total number of steps (batches of samples) to yield
 from generator before declaring one epoch finished and starting the next epoch. 
 It should typically be equal to the number of unique samples of your dataset divided by the batch size.
 '''
-history_object = model.fit_generator(train_generator(batch_size), steps_per_epoch=400, epochs=1, verbose=1)
+history_object = model.fit_generator(train_generator(batch_size), steps_per_epoch=8000, epochs=3, verbose=1)
 model.save('model.h5')
 
 ### print the keys contained in the history object
