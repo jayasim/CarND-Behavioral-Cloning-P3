@@ -117,6 +117,7 @@ The video will run at 48 FPS. The default FPS is 60.
 
 ### My Approach
 
+
 #### 1. Architecture
 Below is the output of the Keras model.summary():
 
@@ -170,3 +171,25 @@ Training data was chosen to keep the vehicle driving on the road. I used a combi
 #### 5. Preprocessing and Augumentation
 
 Used shuffle and added more images using flip for augumentation and preprocessing respectively 
+
+#### 6. Problems faced in the Architecture and steps taken
+
+* Initially I've kept my epoch size as 2 with steps_per_epoch as 8000 as I couldn't see much increase in accuracy so I decided to reduce the epoch to save training time. The problem with this approach is the network couldn't get a chance to learn from all the training data. So I've decided to increase epochs to 3 to cover the entire dataset.
+
+* Data normalization is done in the second Keras Lambda layer
+
+* To increase the overall amount of training data and make the model more robust and generalized, I decided to augment the data by flipping the image using np.fliplr using steering_offset = 0.2
+
+* Applied a high dropout of 0.6 (60% of the data is lost) to reduce overfitting
+
+* After the augmentation, I randomly shuffled the data set inside my train_generator - yield shuffle(Images, Steerings)
+
+* The ideal number of epochs was 2-3 as the mean squared error only changed marginally after that. I used an adam optimizer so that manually changing the learning rate wasn't necessary.
+
+* I've planned to work on improving the model's track 2 performance as well.
+
+* From the start I wanted to achieve an accuracy of above 0.6,. I found out that even seemingly low accuracies yielded  acceptable autonomous driving. Even a ridiculously low accuracy below 1% yielded a safe center-of-lane driving for most of track 1.
+
+#### 7. Dataset generation
+
+I tried recording the manual dirving in both directions for my dataset but it came to me as a surprise that I am a poor driver of simulated cars :) So I've decided to go ahead with the training data provided as part of the exercise.
